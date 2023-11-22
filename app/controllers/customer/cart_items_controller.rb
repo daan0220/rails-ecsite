@@ -43,10 +43,10 @@ class Customer::CartItemsController < ApplicationController
   end
 
   def decrease_or_destroy(cart_item)
-    if cart_item.quantity > 1
+    if cart_item.quantity.present? && cart_item.quantity > 1
       cart_item.decrement!(:quantity, 1)
-    else
+    elsif cart_item.quantity.present? && cart_item.quantity <= 1
       cart_item.destroy
     end
-  end
+  end  
 end
